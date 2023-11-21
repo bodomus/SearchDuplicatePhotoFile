@@ -68,10 +68,8 @@ def find_files_by_name_and_extension(directory, file_name, file_extension):
 def make_decision(source_file_path, destination_file_path):
     """
     Make decision. Is source file the same as destination
-
     Parameters:
         source_file_path (str): The path to the file.
-
     Returns:
         bool: true if files are identity.
     """
@@ -99,13 +97,13 @@ if __name__ == '__main__':
         found_files = find_files_by_name_and_extension(directory_to_search, filename, file_extension)
         if len(found_files) > 0:
             for foundf in found_files:
-                dt = read_exif_date(directory_to_original_file_enumerate + filename + file_extension)
-                dtd = read_exif_date(foundf)
-                if str(dt) == str(dtd):
-                    print("For file ")
-                    print(Fore.GREEN + f"{f}" + Style.RESET_ALL)
+                # dt = read_exif_date(directory_to_original_file_enumerate + filename + file_extension)
+                # dtd = read_exif_date(foundf)
+                if make_decision(foundf, f):
+                    print("For file " + Fore.GREEN + f"{f}" + Style.RESET_ALL + " were found files:" + Fore.GREEN + f"{foundf}" + Style.RESET_ALL + f" DateTime file: {read_exif_date(foundf)} Count files: {len(found_files)}")
+                else:
                     print(
-                        "was found files:" + Fore.GREEN + f"{foundf}" + Style.RESET_ALL + f"DateTime file: {read_exif_date(foundf)} Count files: {len(found_files)}")
+                        "For file " + Fore.BLUE + f"{f}" + Style.RESET_ALL + " found filename match but exif does not equivalent")
         else:
             print(
                 "File " + Fore.RED + f" \"{f}\" " + Style.RESET_ALL + " not found in {directory_to_search} and subdirectories.")
